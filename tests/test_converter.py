@@ -85,7 +85,7 @@ def test_is_water_freezing_with_invalid_value_type():
         is_water_freezing("0", "celsius")
 
 def test_is_water_freezing_with_unsupported_scale():
-    with pytest.raises(ValueError, match="Escala desconhecida ou não suportada."):
+    with pytest.raises(ValueError, match="Escala 'bah' desconhecida ou não suportada."):
         is_water_freezing(0, "bah")
 
 def test_is_water_freezing_below_absolute_zero():
@@ -120,7 +120,7 @@ def test_is_water_boiling_with_invalid_value_type():
         is_water_boiling("100", "celsius")
 
 def test_is_water_boiling_with_unsupported_scale():
-    with pytest.raises(ValueError, match="Escala desconhecida ou não suportada."):
+    with pytest.raises(ValueError, match="Escala 'bah' desconhecida ou não suportada."):
         is_water_boiling(100, "bah")
 
 def test_is_water_boiling_below_absolute_zero():
@@ -158,9 +158,22 @@ def test_get_water_state_with_invalid_value_type():
         get_water_state("25", "celsius")
 
 def test_get_water_state_with_unsupported_scale():
-    with pytest.raises(ValueError, match="Escala desconhecida ou não suportada."):
+    with pytest.raises(ValueError, match="Escala 'bah' desconhecida ou não suportada."):
         get_water_state(25, "bah")
 
 def test_get_water_state_below_absolute_zero():
     with pytest.raises(ValueError, match="A temperatura não pode estar abaixo do zero absoluto."):
         get_water_state(-300, "celsius")
+
+# FREEZING POINT DIRECT CONVERSIONS
+def test_celsius_freezing_point_conversions():
+    assert celsius_to_fahrenheit(0) == 32
+    assert celsius_to_kelvin(0) == pytest.approx(273.15)
+
+def test_fahrenheit_freezing_point_conversions():
+    assert fahrenheit_to_celsius(32) == 0
+    assert fahrenheit_to_kelvin(32) == pytest.approx(273.15)
+
+def test_kelvin_freezing_point_conversions():
+    assert kelvin_to_celsius(273.15) == pytest.approx(0.0)
+    assert kelvin_to_fahrenheit(273.15) == pytest.approx(32.0)
