@@ -33,6 +33,10 @@ def test_fahrenheit_to_kelvin_conversion_with_positive_temperature():
 def test_fahrenheit_to_kelvin_conversion_with_negative_temperature():
     assert fahrenheit_to_kelvin(-40) == pytest.approx(233.15)
 
+def test_fahrenheit_to_kelvin_conversion_below_absolute_zero():
+    with pytest.raises(ValueError, match="A temperatura não pode estar abaixo do zero absoluto."):
+        fahrenheit_to_kelvin(-500)
+
 
 # KELVIN (POSITIVE AND NEGATIVE TEMPERATURES)
 def test_kelvin_to_celsius_conversion_with_positive_temperature():
